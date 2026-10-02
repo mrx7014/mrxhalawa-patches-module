@@ -786,7 +786,7 @@ build_rv() {
 					epr "The repository-specific update-check patch is missing: $p"
 					return 1
 				fi
-				patcher_args+=("-p $p" "-OcurrentTag=${NEXT_VER_CODE}")
+				patcher_args+=("-p $p" "-OcurrentTag=${NEXT_VER_CODE}" "-e \"Current Build Tag\"" "-e \"j-hc Update Check\"")
 			fi
 		fi
 
