@@ -56,7 +56,7 @@ include-stock = "merged"                                   # 'merged', 'split' o
 exclusive-patches = false                                  # exclude all patches by default. default: false
 
 # enables in-app update check for `apk` build-mode. default: false
-# as of now, works only for yt, yt music, twitter and gphotos
+# GitHub Actions builds check releases in this repository; supported apps: yt, yt music, twitter and gphotos
 enable-update-checks = true
 
 apkmirror-dlurl = "https://www.apkmirror.com/apk/inc/app"

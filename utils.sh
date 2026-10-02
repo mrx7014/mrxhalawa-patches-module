@@ -781,18 +781,12 @@ build_rv() {
 
 		if [ "${args[enable_update_checks]}" = "true" ] && [ "$build_mode" = "apk" ]; then
 			if [ -n "${GITHUB_REPOSITORY-}" ]; then
-				if [ "${GITHUB_REPOSITORY}" = "j-hc/revanced-magisk-module" ]; then
-					local p="$TEMP_DIR/jhc-update-check.mpp"
-					if [ ! -f $p ]; then
-						local resp dlurl
-						resp=$(gh_req "https://api.github.com/repos/j-hc/morphe-jhc-update-check-patch/releases/latest" -) || return 1
-						dlurl=$(jq -e -r '.assets[0] | .browser_download_url' <<<"$resp") || return 1
-						gh_dl $p "$dlurl" >/dev/null || return 1
-					fi
-					patcher_args+=("-p $p")
-				else
-					wpr "enable-update-checks is only implemented for j-hc/revanced-magisk-module"
+				local p="$MODULE_TEMPLATE_DIR/bin/jhc-update-check.mpp"
+				if [ ! -f "$p" ]; then
+					epr "The repository-specific update-check patch is missing: $p"
+					return 1
 				fi
+				patcher_args+=("-p $p" "-OcurrentTag=${NEXT_VER_CODE}")
 			fi
 		fi
 
